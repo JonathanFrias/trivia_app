@@ -9,10 +9,6 @@
   </head>
 
   <body>
-  <% flash.each do |key, value| %>
-    <%= content_tag :div, value, class: "flash #{key}" %>
-  <% end %>
-
   <%= render 'login_register' %>
   <%= yield %>
   </body>

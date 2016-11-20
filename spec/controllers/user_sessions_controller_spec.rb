@@ -23,10 +23,31 @@ RSpec.describe UserSessionsController, type: :controller do
     expect(response).to redirect_to('/sessions/new')
   end
 
-
   it "redirects when already signed in" do
     session[:user_id] = user.id
     get :new
     expect(response).to redirect_to(user)
+  end
+
+  it "redirects correctly after sign in" do
+    post :create, params: {
+      session: {
+        username: username,
+        password: password
+      },
+      redirect_to: "/anywhere"
+    }
+    expect(response).to redirect_to('/anywhere')
+  end
+
+  it "redirects correctly after sign in" do
+    session[:redirect_to] = '/anywhere'
+    post :create, params: {
+      session: {
+        username: username,
+        password: password
+      },
+    }
+    expect(response).to redirect_to('/anywhere')
   end
 end

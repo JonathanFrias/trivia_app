@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @trivia_question.question %>
+</p>
+
+<p>
+  <strong>Answers</strong>
+</p>
+
+
+<%= link_to 'Edit Question', edit_trivia_question_path(@trivia_question) %> |
+<%= link_to 'Back', trivia_questions_path %>
