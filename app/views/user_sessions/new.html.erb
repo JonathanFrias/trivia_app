@@ -1,0 +1,18 @@
+<h2>
+  Login
+</h2>
+
+<%= form_tag action: :create %>
+
+<div class="field">
+  <%= label_tag "Username:", nil, for: "username" %>
+  <%= text_field_tag "username", nil, name: "session[username]" %>
+</div>
+
+<div class="field">
+  <%= label_tag "Password:", nil,  for: "password" %>
+  <%= password_field_tag "password", nil, name: "session[password]" %>
+</div>
+
+<%= submit_tag("Login") %>
+
