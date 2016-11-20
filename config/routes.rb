@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :trivia_questions
+  get "/trivia_questions/tag/:tag" => "trivia_questions#index", as: :trivia_tag
+
   resources :users, except: [:destroy]
 
   get "/sessions/new" => "user_sessions#new", as: :log_in_path

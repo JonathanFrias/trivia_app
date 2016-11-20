@@ -33,6 +33,7 @@ RSpec.describe TriviaQuestionsController, type: :controller do
     {
       question: "What is your favoriate animal?",
       user_id: user_id,
+      tag_list: "foo, bar"
     }
   }
 
@@ -56,6 +57,16 @@ RSpec.describe TriviaQuestionsController, type: :controller do
       trivia_question = TriviaQuestion.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(assigns(:trivia_questions)).to eq([trivia_question])
+    end
+
+    it "filters trivia questions based on the provided tag" do
+      TriviaQuestion.create! valid_attributes
+      trivia_question = TriviaQuestion.create! valid_attributes
+      tag = Tag.create(name: "foobar")
+      Tagging.create(tag_id: tag.id, trivia_question_id: trivia_question.id)
+      get :index, params: { tag: tag.name }
+
+      expect(assigns(:trivia_questions).count).to eq(1)
     end
   end
 
@@ -88,6 +99,7 @@ RSpec.describe TriviaQuestionsController, type: :controller do
         expect {
           post :create, params: {trivia_question: valid_attributes}, session: valid_session
         }.to change(TriviaQuestion, :count).by(1)
+        expect(Tag.count).to eq 2
       end
 
       it "assigns a newly created trivia_question as @trivia_question" do
@@ -123,7 +135,8 @@ RSpec.describe TriviaQuestionsController, type: :controller do
     context "with valid params" do
       let(:new_attributes) {
         {
-          question: new_question
+          question: new_question,
+          tag_list: "stuff and things"
         }
       }
 
@@ -135,6 +148,7 @@ RSpec.describe TriviaQuestionsController, type: :controller do
         trivia_question.reload
 
         expect(trivia_question.question).to eq new_question
+        expect(trivia_question.tags.map(&:name)).to eq ["stuff and things"]
       end
 
       it "assigns the requested trivia_question as @trivia_question" do
@@ -183,5 +197,4 @@ RSpec.describe TriviaQuestionsController, type: :controller do
       expect(response).to redirect_to(trivia_questions_url)
     end
   end
-
 end

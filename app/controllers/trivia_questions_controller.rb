@@ -5,7 +5,16 @@ class TriviaQuestionsController < ApplicationController
   # GET /trivia_questions
   # GET /trivia_questions.json
   def index
-    @trivia_questions = TriviaQuestion.all
+
+    if params[:tag]
+      trivia_questions = TriviaQuestion.tagged_with(params[:tag])
+    else
+      trivia_questions = TriviaQuestion.all
+    end
+
+    @trivia_questions = trivia_questions.map do |it|
+      TriviaQuestionPresenter.new(it)
+    end
   end
 
   # GET /trivia_questions/1
@@ -70,7 +79,7 @@ class TriviaQuestionsController < ApplicationController
     def trivia_question_params
       params
         .require(:trivia_question)
-        .permit(:question)
+        .permit(:question, :tag_list)
         .merge(user_id: current_user.id)
     end
 end
