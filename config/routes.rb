@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   post "/sessions" => "user_sessions#create"
   delete "/sessions" => "user_sessions#destroy", as: :log_out_path
 
+  get '/high_scores' => 'high_score#index'
 end

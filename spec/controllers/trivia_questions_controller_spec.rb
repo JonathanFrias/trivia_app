@@ -111,7 +111,7 @@ RSpec.describe TriviaQuestionsController, type: :controller do
 
       it "redirects to create another trivia question" do
         post :create, params: {trivia_question: valid_attributes}, session: valid_session
-        expect(response).to render_template("new")
+        expect(response).to redirect_to new_trivia_question_path
       end
     end
 

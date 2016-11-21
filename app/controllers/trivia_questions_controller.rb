@@ -30,7 +30,7 @@ class TriviaQuestionsController < ApplicationController
 
     respond_to do |format|
       if @trivia_question.save
-        format.html { render :new, notice: 'Trivia question was successfully created.' }
+        format.html { redirect_to new_trivia_question_path, notice: 'Trivia question was successfully created.' }
         format.json { render :show, status: :created, location: @trivia_question }
       else
         format.html { render :new }

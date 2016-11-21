@@ -1,0 +1,15 @@
+
+<h3>High Scores</h3>
+
+<%= render partial: 'list', locals: { users: @high_scores } %>
+
+<h3>Low Scores</h3>
+
+<%= render partial: 'list', locals: { users: @low_scores } %>
+
+<h3>Average Score</h3>
+
+<p>
+  <span><%= @avg_score %></span>
+</p>
+

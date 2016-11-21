@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121052358) do
+ActiveRecord::Schema.define(version: 20161121074714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,9 +53,13 @@ ActiveRecord::Schema.define(version: 20161121052358) do
     t.string   "username"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "score",           default: 0, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "score",                    default: 0, null: false
+    t.integer  "longest_correct_streak",   default: 0
+    t.integer  "longest_incorrect_streak", default: 0
+    t.integer  "current_correct_streak",   default: 0
+    t.integer  "current_incorrect_streak", default: 0
   end
 
   add_foreign_key "answers", "trivia_questions"
