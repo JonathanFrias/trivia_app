@@ -2,17 +2,19 @@
 
 <h1>Trivia Questions</h1>
 
+<hr>
 <% @trivia_questions.each do |trivia_question| %>
+  <div class="trivia">
+    <p><%= link_to trivia_question.question, trivia_question %></p>
+    <span class="tags">
+      Tags: <%= trivia_question.tag_links %>
+    </span>
 
-<div class="trivia">
-
-  <p><%= link_to trivia_question.question, trivia_question %></p>
-  <%= raw trivia_question.tags %>
-
-  <span><%- link_to 'Show', trivia_question %></span>
-  <span><%- link_to 'Edit', edit_trivia_question_path(trivia_question) %></span>
-  <span><%- link_to 'Destroy', trivia_question, method: :delete, data: { confirm: 'Are you sure?' } %></span>
-</div>
+    <span><%- link_to 'Show', trivia_question %></span>
+    <span><%- link_to 'Edit', edit_trivia_question_path(trivia_question) %></span>
+    <span><%- link_to 'Destroy', trivia_question, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+  </div>
+  <hr>
 <% end %>
 
 <%= link_to 'New Trivia Question', new_trivia_question_path %>

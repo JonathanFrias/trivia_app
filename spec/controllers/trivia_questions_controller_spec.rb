@@ -32,6 +32,7 @@ RSpec.describe TriviaQuestionsController, type: :controller do
   let(:valid_attributes) {
     {
       question: "What is your favoriate animal?",
+      correct_answer: "Dog",
       user_id: user_id,
       tag_list: "foo, bar"
     }
@@ -136,11 +137,13 @@ RSpec.describe TriviaQuestionsController, type: :controller do
       let(:new_attributes) {
         {
           question: new_question,
+          correct_answer: new_answer,
           tag_list: "stuff and things"
         }
       }
 
       let(:new_question) { "whats your fav color?" }
+      let(:new_answer) { "blue" }
 
       it "updates the requested trivia_question" do
         trivia_question = TriviaQuestion.create! valid_attributes
@@ -149,6 +152,7 @@ RSpec.describe TriviaQuestionsController, type: :controller do
 
         expect(trivia_question.question).to eq new_question
         expect(trivia_question.tags.map(&:name)).to eq ["stuff and things"]
+        expect(trivia_question.correct_answer).to eq new_answer
       end
 
       it "assigns the requested trivia_question as @trivia_question" do

@@ -1,6 +1,7 @@
 class TriviaQuestion < ApplicationRecord
   validates_presence_of :question, allow_blank: false
   has_many :taggings
+  has_many :answers
   has_many :tags, through: :taggings, dependent: :destroy
 
   belongs_to :user

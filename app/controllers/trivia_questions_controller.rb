@@ -2,8 +2,6 @@ class TriviaQuestionsController < ApplicationController
   before_action :set_trivia_question, only: [:show, :edit, :update, :destroy]
   before_action :require_login, only: [:create, :edit, :update]
 
-  # GET /trivia_questions
-  # GET /trivia_questions.json
   def index
 
     if params[:tag]
@@ -13,26 +11,20 @@ class TriviaQuestionsController < ApplicationController
     end
 
     @trivia_questions = trivia_questions.map do |it|
-      TriviaQuestionPresenter.new(it)
+      TriviaQuestionPresenter.new(it, current_user)
     end
   end
 
-  # GET /trivia_questions/1
-  # GET /trivia_questions/1.json
   def show
   end
 
-  # GET /trivia_questions/new
   def new
     @trivia_question = TriviaQuestion.new
   end
 
-  # GET /trivia_questions/1/edit
   def edit
   end
 
-  # POST /trivia_questions
-  # POST /trivia_questions.json
   def create
     @trivia_question = TriviaQuestion.new(trivia_question_params)
 
@@ -59,8 +51,6 @@ class TriviaQuestionsController < ApplicationController
     end
   end
 
-  # DELETE /trivia_questions/1
-  # DELETE /trivia_questions/1.json
   def destroy
     @trivia_question.destroy
     respond_to do |format|
@@ -70,16 +60,19 @@ class TriviaQuestionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_trivia_question
       @trivia_question = TriviaQuestion.find(params[:id])
+      @trivia_presenter = TriviaQuestionPresenter.new(trivia_question, current_user)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def trivia_question_params
       params
         .require(:trivia_question)
-        .permit(:question, :tag_list)
+        .permit(:question, :tag_list, :correct_answer)
         .merge(user_id: current_user.id)
+    end
+
+    def trivia_question
+      @trivia_question
     end
 end

@@ -5,10 +5,13 @@
   <%= @trivia_question.question %>
 </p>
 
+<%= @trivia_presenter.edit_link %><br />
+
+<%= link_to 'Answer this question!', new_answer_for_path(@trivia_question) %>
 <p>
-  <strong>Answers</strong>
+  <strong>Existing Answers</strong>
 </p>
 
+<%= render 'answers/index', answers: @trivia_question.answers %>
 
-<%= link_to 'Edit Question', edit_trivia_question_path(@trivia_question) %> |
 <%= link_to 'Back', trivia_questions_path %>
