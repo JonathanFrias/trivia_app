@@ -32,6 +32,7 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
+  gem 'pry-nav'
   gem 'factory_girl_rails'
 end
 
@@ -39,6 +40,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
+  gem 'faker'
 end
 
 group :development do

@@ -109,9 +109,9 @@ RSpec.describe TriviaQuestionsController, type: :controller do
         expect(assigns(:trivia_question)).to be_persisted
       end
 
-      it "redirects to the created trivia_question" do
+      it "redirects to create another trivia question" do
         post :create, params: {trivia_question: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(TriviaQuestion.last)
+        expect(response).to render_template("new")
       end
     end
 

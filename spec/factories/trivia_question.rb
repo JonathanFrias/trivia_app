@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :trivia_question do
     sequence(:question) { |i| "question#{i}" }
-    user_id { FactoryGirl.create(:user).id }
+    user                { FactoryGirl.create(:user) }
+    correct_answer      { Faker::Hacker.say_something_smart }
   end
 end
