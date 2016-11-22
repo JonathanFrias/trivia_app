@@ -120,5 +120,12 @@ RSpec.describe AnswersController, type: :controller do
         end
       end
     end
+
+    it "blocks answers of the same question" do
+      2.times do
+        post :create, params: {answer: valid_attributes}, session: valid_session
+      end
+      expect(flash[:alert]).not_to eq nil
+    end
   end
 end

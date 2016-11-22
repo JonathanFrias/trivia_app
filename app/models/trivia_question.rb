@@ -4,6 +4,8 @@ class TriviaQuestion < ApplicationRecord
   has_many :answers
   has_many :tags, through: :taggings, dependent: :destroy
 
+  has_reputation :votes, source: :user, aggregated_by: :sum
+
   belongs_to :user
   attr_accessor :tag_list
 

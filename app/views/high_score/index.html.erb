@@ -3,7 +3,7 @@
 
 <%= render partial: 'list', locals: { users: @high_scores } %>
 
-<h3>Low Scores</h3>
+<h3>Wall of Shame</h3>
 
 <%= render partial: 'list', locals: { users: @low_scores } %>
 
@@ -11,5 +11,19 @@
 
 <p>
   <span><%= @avg_score %></span>
+</p>
+
+
+<h3>Longest Correct Streak</h3>
+
+<p>
+  <span><%= @correct_streak.username %>(<%= @correct_streak.longest_correct_streak%>)</span>
+</p>
+
+
+<h3>Longest Incorrect Streak</h3>
+
+<p>
+  <span><%= @incorrect_streak.username %>(<%= @incorrect_streak.longest_incorrect_streak%>)</span>
 </p>
 

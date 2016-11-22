@@ -22,7 +22,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if answer.save
-        ScoreAnswer.new(answer).call
+        score_answer!
         format.html { redirect_to answer.trivia_question, notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: answer }
       else
@@ -70,5 +70,15 @@ class AnswersController < ApplicationController
 
     def trivia_question_id
       answer_params[:trivia_question_id]
+    end
+
+    def score_answer!
+      begin
+        is_correct = ScoreAnswer.new(answer).call
+        flash.notice = "Answer was #{answer.correct_answer}"
+        flash.notice = "Correct! Answer was #{answer.correct_answer}" if is_correct
+      rescue ActiveRecord::RecordInvalid
+        flash.alert = "You have already answered this question!"
+      end
     end
 end

@@ -1,5 +1,5 @@
 class TriviaQuestionsController < ApplicationController
-  before_action :set_trivia_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_trivia_question, only: [:show, :edit, :update, :destroy, :vote]
   before_action :require_login, only: [:create, :edit, :update]
 
   def index
@@ -59,9 +59,20 @@ class TriviaQuestionsController < ApplicationController
     end
   end
 
+  def vote
+    value = {
+      "up" => 1,
+      "down" => -1,
+    }[params[:type]]
+
+    trivia_question.add_or_update_evaluation(:votes, value, current_user)
+    redirect_back(fallback_location: '/', notice: "Thanks for voting")
+  end
+
   private
+    attr_reader :trivia_question
     def set_trivia_question
-      @trivia_question = TriviaQuestion.find(params[:id])
+      @trivia_question = TriviaQuestion.find(params[:id] || params[:trivia_question_id])
       @trivia_presenter = TriviaQuestionPresenter.new(trivia_question, current_user)
     end
 

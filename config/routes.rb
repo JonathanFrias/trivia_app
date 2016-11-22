@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :answers, except: [:new, :update, :destroy]
   get '/answer_for/:question_id' => 'answers#new', as: :new_answer_for
 
-  resources :trivia_questions
+  resources :trivia_questions do
+    post :vote
+  end
   get "/trivia_questions/tag/:tag" => "trivia_questions#index", as: :trivia_tag
 
   resources :users, except: [:destroy]

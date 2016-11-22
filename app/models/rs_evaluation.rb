@@ -1,0 +1,2 @@
+class RsEvaluation < ApplicationRecord
+end

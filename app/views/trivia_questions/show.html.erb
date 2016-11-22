@@ -5,6 +5,9 @@
   <%= @trivia_question.question %>
 </p>
 
+Rating:<%= link_to "👍", trivia_question_vote_path(@trivia_presenter, type: "up"), method: :post  %>
+<%= link_to "👎", trivia_question_vote_path(@trivia_presenter, type: "down"), method: :post %>
+(<%= @trivia_presenter.reputation_for(:votes).to_i %>)
 <%= @trivia_presenter.edit_link %><br />
 
 <%= link_to 'Answer this question!', new_answer_for_path(@trivia_question) %>
