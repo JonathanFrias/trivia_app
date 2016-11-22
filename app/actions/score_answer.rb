@@ -48,7 +48,7 @@ class ScoreAnswer
   class DefaultMatcher
 
     def matches?(answer1, answer2)
-      answer1 == answer2
+      answer1.downcase == answer2.downcase
     end
   end
 end

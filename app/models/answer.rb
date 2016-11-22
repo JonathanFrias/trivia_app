@@ -11,4 +11,8 @@ class Answer < ApplicationRecord
   def username
     user.username
   end
+
+  def correct_answer
+    trivia_question.correct_answer
+  end
 end

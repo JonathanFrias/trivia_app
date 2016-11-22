@@ -30,7 +30,7 @@ RSpec.describe HighScoreController, type: :controller do
 
     it "computes the average correctly" do
       get :index
-      expect(assigns[:avg_score]).to be_within(0.1).of(2.3)
+      expect(assigns[:avg_score]).to be_within(0.1).of(14)
     end
 
 

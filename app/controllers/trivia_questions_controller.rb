@@ -7,7 +7,7 @@ class TriviaQuestionsController < ApplicationController
     if params[:tag]
       trivia_questions = TriviaQuestion.tagged_with(params[:tag])
     else
-      trivia_questions = TriviaQuestion.all
+      trivia_questions = GetRandomQuestions.new(10).call
     end
 
     @trivia_questions = trivia_questions.map do |it|
@@ -45,7 +45,7 @@ class TriviaQuestionsController < ApplicationController
         format.html { redirect_to @trivia_question, notice: 'Trivia question was successfully updated.' }
         format.json { render :show, status: :ok, location: @trivia_question }
       else
-        format.html { render :edit }
+        format.html { render :edit, notice: @trivia_question.errors.full_messages }
         format.json { render json: @trivia_question.errors, status: :unprocessable_entity }
       end
     end
@@ -72,6 +72,7 @@ class TriviaQuestionsController < ApplicationController
   private
     attr_reader :trivia_question
     def set_trivia_question
+      @random = GetRandomQuestions.new.call.first
       @trivia_question = TriviaQuestion.find(params[:id] || params[:trivia_question_id])
       @trivia_presenter = TriviaQuestionPresenter.new(trivia_question, current_user)
     end

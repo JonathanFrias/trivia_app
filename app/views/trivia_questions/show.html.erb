@@ -10,7 +10,9 @@ Rating:<%= link_to "👍", trivia_question_vote_path(@trivia_presenter, type: "u
 (<%= @trivia_presenter.reputation_for(:votes).to_i %>)
 <%= @trivia_presenter.edit_link %><br />
 
-<%= link_to 'Answer this question!', new_answer_for_path(@trivia_question) %>
+<%= link_to 'Answer this question!', new_answer_for_path(@trivia_question) %> |
+<%= link_to 'Next Question', trivia_question_path(@random) %>
+
 <p>
   <strong>Existing Answers</strong>
 </p>
